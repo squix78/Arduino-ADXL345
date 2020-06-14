@@ -29,12 +29,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ADXL345.h"
 
 bool ADXL345::begin()
+bool ADXL345::begin(int sda, int scl)
 {
     f.XAxis = 0;
     f.YAxis = 0;
     f.ZAxis = 0;
 
     Wire.begin();
+    Wire.begin(sda, scl);
 
     // Check ADXL345 REG DEVID
     if (fastRegister8(ADXL345_REG_DEVID) != 0xE5)
@@ -309,10 +311,10 @@ void ADXL345::setActivityXYZ(bool state)
 
     if (state)
     {
-	value |= 0b00111000;
+  value |= 0b00111000;
     } else
     {
-	value &= 0b11000111;
+  value &= 0b11000111;
     }
 
     writeRegister8(ADXL345_REG_ACT_INACT_CTL, value);
@@ -357,10 +359,10 @@ void ADXL345::setInactivityXYZ(bool state)
 
     if (state)
     {
-	value |= 0b00000111;
+  value |= 0b00000111;
     } else
     {
-	value &= 0b11111000;
+  value &= 0b11111000;
     }
 
     writeRegister8(ADXL345_REG_ACT_INACT_CTL, value);
@@ -404,10 +406,10 @@ void ADXL345::setTapDetectionXYZ(bool state)
 
     if (state)
     {
-	value |= 0b00000111;
+  value |= 0b00000111;
     } else
     {
-	value &= 0b11111000;
+  value &= 0b11111000;
     }
 
     writeRegister8(ADXL345_REG_TAP_AXES, value);
@@ -418,13 +420,13 @@ void ADXL345::useInterrupt(adxl345_int_t interrupt)
 {
     if (interrupt == 0)
     {
-	writeRegister8(ADXL345_REG_INT_MAP, 0x00);
+  writeRegister8(ADXL345_REG_INT_MAP, 0x00);
     } else
     {
-	writeRegister8(ADXL345_REG_INT_MAP, 0xFF);
+  writeRegister8(ADXL345_REG_INT_MAP, 0xFF);
     }
 
-    writeRegister8(ADXL345_REG_INT_ENABLE, 0xFF);
+    writeRegister8(ADXL345_REG_INT_ENABLE, 0x70);
 }
 
 Activites ADXL345::readActivites(void)
@@ -551,6 +553,7 @@ void ADXL345::writeRegisterBit(uint8_t reg, uint8_t pos, bool state)
     if (state)
     {
 	value |= (1 << pos);
+  value |= (1 << pos);
     } else 
     {
 	value &= ~(1 << pos);

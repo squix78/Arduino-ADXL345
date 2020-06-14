@@ -59,7 +59,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ADXL345_REG_FIFO_CTL         (0x38)
 #define ADXL345_REG_FIFO_STATUS      (0x39)
 
-#define ADXL345_GRAVITY_SUN          273.95f
+#define ADXL345_GRAVITY_SUN          273.95f 
 #define ADXL345_GRAVITY_EARTH        9.80665f
 #define ADXL345_GRAVITY_MOON         1.622f
 #define ADXL345_GRAVITY_MARS         3.69f
@@ -143,90 +143,91 @@ class ADXL345
 {
     public:
 
-	bool begin(void);
-	void clearSettings(void);
+  bool begin(int sda, int scl);
+  void clearSettings(void);
+  void sleep();
 
-	Vector readRaw(void);
-	Vector readNormalize(float gravityFactor = ADXL345_GRAVITY_EARTH);
-	Vector readScaled(void);
+  Vector readRaw(void);
+  Vector readNormalize(float gravityFactor = ADXL345_GRAVITY_EARTH);
+  Vector readScaled(void);
 
-	Activites readActivites(void);
+  Activites readActivites(void);
 
-	Vector lowPassFilter(Vector vector, float alpha = 0.5);
+  Vector lowPassFilter(Vector vector, float alpha = 0.5);
 
-	void  setRange(adxl345_range_t range);
-	adxl345_range_t getRange(void);
+  void  setRange(adxl345_range_t range);
+  adxl345_range_t getRange(void);
 
-	void  setDataRate(adxl345_dataRate_t dataRate);
-	adxl345_dataRate_t getDataRate(void);
+  void  setDataRate(adxl345_dataRate_t dataRate);
+  adxl345_dataRate_t getDataRate(void);
 
-	void setTapThreshold(float threshold);
-	float getTapThreshold(void);
+  void setTapThreshold(float threshold);
+  float getTapThreshold(void);
 
-	void setTapDuration(float duration);
-	float getTapDuration(void);
+  void setTapDuration(float duration);
+  float getTapDuration(void);
 
-	void setDoubleTapLatency(float latency);
-	float getDoubleTapLatency(void);
+  void setDoubleTapLatency(float latency);
+  float getDoubleTapLatency(void);
 
-	void setDoubleTapWindow(float window);
-	float getDoubleTapWindow(void);
+  void setDoubleTapWindow(float window);
+  float getDoubleTapWindow(void);
 
-	void setActivityThreshold(float threshold);
-	float getActivityThreshold(void);
+  void setActivityThreshold(float threshold);
+  float getActivityThreshold(void);
 
-	void setInactivityThreshold(float threshold);
-	float getInactivityThreshold(void);
+  void setInactivityThreshold(float threshold);
+  float getInactivityThreshold(void);
 
-	void setTimeInactivity(uint8_t time);
-	uint8_t getTimeInactivity(void);
+  void setTimeInactivity(uint8_t time);
+  uint8_t getTimeInactivity(void);
 
-	void setFreeFallThreshold(float threshold);
-	float getFreeFallThreshold(void);
+  void setFreeFallThreshold(float threshold);
+  float getFreeFallThreshold(void);
 
-	void setFreeFallDuration(float duration);
-	float getFreeFallDuration();
+  void setFreeFallDuration(float duration);
+  float getFreeFallDuration();
 
-	void setActivityX(bool state);
-	bool getActivityX(void);
-	void setActivityY(bool state);
-	bool getActivityY(void);
-	void setActivityZ(bool state);
-	bool getActivityZ(void);
-	void setActivityXYZ(bool state);
+  void setActivityX(bool state);
+  bool getActivityX(void);
+  void setActivityY(bool state);
+  bool getActivityY(void);
+  void setActivityZ(bool state);
+  bool getActivityZ(void);
+  void setActivityXYZ(bool state);
 
-	void setInactivityX(bool state);
-	bool getInactivityX(void);
-	void setInactivityY(bool state);
-	bool getInactivityY(void);
-	void setInactivityZ(bool state);
-	bool getInactivityZ(void);
-	void setInactivityXYZ(bool state);
+  void setInactivityX(bool state);
+  bool getInactivityX(void);
+  void setInactivityY(bool state);
+  bool getInactivityY(void);
+  void setInactivityZ(bool state);
+  bool getInactivityZ(void);
+  void setInactivityXYZ(bool state);
 
-	void setTapDetectionX(bool state);
-	bool getTapDetectionX(void);
-	void setTapDetectionY(bool state);
-	bool getTapDetectionY(void);
-	void setTapDetectionZ(bool state);
-	bool getTapDetectionZ(void);
-	void setTapDetectionXYZ(bool state);
+  void setTapDetectionX(bool state);
+  bool getTapDetectionX(void);
+  void setTapDetectionY(bool state);
+  bool getTapDetectionY(void);
+  void setTapDetectionZ(bool state);
+  bool getTapDetectionZ(void);
+  void setTapDetectionXYZ(bool state);
 
-	void useInterrupt(adxl345_int_t interrupt);
+  void useInterrupt(adxl345_int_t interrupt);
 
 
     private:
-	Vector r;
-	Vector n;
-	Vector f;
-	Activites a;
-	adxl345_range_t _range;
+  Vector r;
+  Vector n;
+  Vector f;
+  Activites a;
+  adxl345_range_t _range;
 
-	void writeRegister8(uint8_t reg, uint8_t value);
-	uint8_t readRegister8(uint8_t reg);
-	uint8_t fastRegister8(uint8_t reg);
-	int16_t readRegister16(uint8_t reg);
-	void writeRegisterBit(uint8_t reg, uint8_t pos, bool state);
-	bool readRegisterBit(uint8_t reg, uint8_t pos);
+  void writeRegister8(uint8_t reg, uint8_t value);
+  uint8_t readRegister8(uint8_t reg);
+  uint8_t fastRegister8(uint8_t reg);
+  int16_t readRegister16(uint8_t reg);
+  void writeRegisterBit(uint8_t reg, uint8_t pos, bool state);
+  bool readRegisterBit(uint8_t reg, uint8_t pos);
 
 
 };
