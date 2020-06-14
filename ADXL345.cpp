@@ -28,14 +28,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "ADXL345.h"
 
-bool ADXL345::begin()
 bool ADXL345::begin(int sda, int scl)
 {
     f.XAxis = 0;
     f.YAxis = 0;
     f.ZAxis = 0;
 
-    Wire.begin();
     Wire.begin(sda, scl);
 
     // Check ADXL345 REG DEVID
@@ -50,6 +48,10 @@ bool ADXL345::begin(int sda, int scl)
     clearSettings();
 
     return true;
+}
+
+void ADXL345::sleep() {
+    writeRegister8(ADXL345_REG_POWER_CTL, 0x04);
 }
 
 // Set Range
@@ -552,11 +554,10 @@ void ADXL345::writeRegisterBit(uint8_t reg, uint8_t pos, bool state)
 
     if (state)
     {
-	value |= (1 << pos);
   value |= (1 << pos);
     } else 
     {
-	value &= ~(1 << pos);
+  value &= ~(1 << pos);
     }
 
     writeRegister8(reg, value);
